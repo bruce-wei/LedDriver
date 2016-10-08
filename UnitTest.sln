@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest", "UnitTest\UnitTest.vcxproj", "{B6FCD83D-B0D4-4265-A0A5-8900A210F90B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LedDriver", "LedDriver\LedDriver.vcxproj", "{8F9EDE7F-6640-4172-8D32-37CB6C536BFA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B6FCD83D-B0D4-4265-A0A5-8900A210F90B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B6FCD83D-B0D4-4265-A0A5-8900A210F90B}.Debug|Win32.Build.0 = Debug|Win32
+		{B6FCD83D-B0D4-4265-A0A5-8900A210F90B}.Release|Win32.ActiveCfg = Release|Win32
+		{B6FCD83D-B0D4-4265-A0A5-8900A210F90B}.Release|Win32.Build.0 = Release|Win32
+		{8F9EDE7F-6640-4172-8D32-37CB6C536BFA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8F9EDE7F-6640-4172-8D32-37CB6C536BFA}.Debug|Win32.Build.0 = Debug|Win32
+		{8F9EDE7F-6640-4172-8D32-37CB6C536BFA}.Release|Win32.ActiveCfg = Release|Win32
+		{8F9EDE7F-6640-4172-8D32-37CB6C536BFA}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

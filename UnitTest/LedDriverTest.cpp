@@ -5,11 +5,11 @@ static uint16_t virtualLeds;
 
 TEST_GROUP(LedDriver)
 {
-	void setup()
+	void setup() override
 	{
 		LedDriver_Create(&virtualLeds);
 	}
-	void teardown()
+	void teardown() override
 	{
 	}
 };
@@ -33,4 +33,98 @@ TEST(LedDriver, TurnOffLedOne)
 	LedDriver_TurnOff(1);
 	LONGS_EQUAL(0, virtualLeds);
 }
+
+TEST(LedDriver, TurnOnMultipleLeds)
+{
+	LedDriver_TurnOn(1);
+	LedDriver_TurnOn(2);
+	LONGS_EQUAL(3, virtualLeds);
+}
+
+TEST(LedDriver, TurnOffAnyLed)
+{
+	LedDriver_TurnAllOn();
+	LedDriver_TurnOff(8);
+	LONGS_EQUAL(0xff7f, virtualLeds);
+}
+
+TEST(LedDriver, AllOn)
+{
+	LedDriver_TurnAllOn();
+	LONGS_EQUAL(0xffff, virtualLeds);
+}
+
+TEST(LedDriver, LedMemoryIsNotReadable)
+{
+	virtualLeds = 0xffff;
+	LedDriver_TurnOn(8);
+	LONGS_EQUAL(0x80, virtualLeds);
+}
+
+TEST(LedDriver, UpperAndLowerBounds)
+{
+	LedDriver_TurnOn(1);
+	LedDriver_TurnOn(16);
+	LONGS_EQUAL(0x8001, virtualLeds);
+}
+
+TEST(LedDriver, OutOfBoundsTurnOnDoesNoHarm)
+{
+	LedDriver_TurnOn(-1);
+	LedDriver_TurnOn(0);
+	LedDriver_TurnOn(17);
+	LedDriver_TurnOn(3141);
+
+	LONGS_EQUAL(0, virtualLeds);
+}
+
+TEST(LedDriver, OutOfBoundsTurnOffDoesNoHarm)
+{
+	LedDriver_TurnAllOn();
+
+	LedDriver_TurnOff(-1);
+	LedDriver_TurnOff(0);
+	LedDriver_TurnOff(17);
+	LedDriver_TurnOff(3141);
+
+	LONGS_EQUAL(0xffff, virtualLeds);
+}
+
+TEST(LedDriver, IsOn)
+{
+	CHECK_FALSE(LedDriver_IsOn(11));
+	LedDriver_TurnOn(11);
+	CHECK_TRUE(LedDriver_IsOn(11));
+}
+
+TEST(LedDriver, OutOfBoundsLedsAreAlwaysOff)
+{
+	CHECK_TRUE(LedDriver_IsOff(0));
+	CHECK_TRUE(LedDriver_IsOff(17));
+	CHECK_FALSE(LedDriver_IsOn(0));
+	CHECK_FALSE(LedDriver_IsOn(17));
+}
+
+TEST(LedDriver, IsOff)
+{
+	CHECK_TRUE(LedDriver_IsOff(12));
+	LedDriver_TurnOn(12);
+	CHECK_FALSE(LedDriver_IsOff(12));
+}
+
+TEST(LedDriver, TurnOffMultipleLeds)
+{
+	LedDriver_TurnAllOn();
+	LedDriver_TurnOff(9);
+	LedDriver_TurnOff(8);
+	LONGS_EQUAL((~0x180)&0xffff, virtualLeds);
+}
+
+TEST(LedDriver, AllOff)
+{
+	LedDriver_TurnAllOn();
+	LedDriver_TurnAllOff();
+	LONGS_EQUAL(0, virtualLeds);
+}
+
 
